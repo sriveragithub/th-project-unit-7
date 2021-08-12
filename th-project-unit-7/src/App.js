@@ -4,6 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+
 import SearchForm from './components/SearchForm'
 import MainNav from './components/MainNav'
 import PhotoContainer from './components/PhotoContainer'
@@ -24,23 +25,15 @@ class App extends Component {
     this.performSearch()
   }
 
-  componentDidUpdate(prevState) {
-    console.log(this.state.images)
-    console.log(prevState.images)
-  }
-
-  performSearch = (query) => {
-    console.log(this.state.searchQuery)
+  performSearch = (query = 'dogs') => {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(res => {
-        console.log(res.data.photos.photo)
         this.setState({
           images: res.data.photos.photo,
           loading: false,
           searchQuery: query
         })
       })
-    console.log(this.state.searchQuery)
   }
 
   render() {
