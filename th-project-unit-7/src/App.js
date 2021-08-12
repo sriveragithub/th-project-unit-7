@@ -24,7 +24,11 @@ class App extends Component {
           <MainNav />
           <Switch>
             <Route exact path="/" render={ () => <PhotoContainer />} />
-            <Route path="/search/:tag" component={PhotoContainer} />
+            <Route path="/search/:tag" render={ ({match}) => {
+              console.log(match.params.tag)
+              return (<PhotoContainer query={match.params.tag} />)
+            }} />
+            {/* <Route path="/search/:tag" component={PhotoContainer} /> */}
             <Route component={NoRoute} />
           </Switch>
         </div>

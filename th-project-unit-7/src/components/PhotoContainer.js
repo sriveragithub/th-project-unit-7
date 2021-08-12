@@ -8,10 +8,11 @@ class PhotoContainer extends Component {
 
   constructor(props) {
     super(props)
+    console.log(props)
     this.state = {
       images: [],
       loading: true,
-      searchQuery: props.match.params.tag || 'dogs'
+      searchQuery: props.query || 'dogs'
     }
   }
 
