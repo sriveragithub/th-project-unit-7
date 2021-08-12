@@ -8,8 +8,6 @@ const MainNav = (props) => {
     console.log(searchQuery)
     props.initSearch(searchQuery)
   }
-  
-  console.log(props.match)
 
   return(
     <nav className="main-nav">

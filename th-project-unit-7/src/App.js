@@ -36,7 +36,8 @@ class App extends Component {
         console.log(res.data.photos.photo)
         this.setState({
           images: res.data.photos.photo,
-          loading: false
+          loading: false,
+          searchQuery: query
         })
       })
     console.log(this.state.searchQuery)
@@ -48,12 +49,23 @@ class App extends Component {
         <div>
           <SearchForm initSearch={this.performSearch} />
           <MainNav initSearch={this.performSearch} />
-          <Switch>
-            {this.state.loading ? <>Loading...</> : this.state.images.length !== 0 ? <Route exact path="/" render={ () => <PhotoContainer images={this.state.images} />} /> : <NotFound />}
-            {this.state.loading ? <>Loading...</> : this.state.images.length !== 0 ? <Route path="/search/:tag" render={ () => <PhotoContainer images={this.state.images} /> } />  : <NotFound />}
-            {/* <Route path="/search/:tag" component={PhotoContainer} /> */}
-            <Route component={NoRoute} />
-          </Switch>
+          {this.state.loading ?
+          <>Loading...</> :
+          this.state.images.length !== 0 ?
+            (<Switch>
+              <Route exact path="/" render={ () => <PhotoContainer images={this.state.images} />} />
+              <Route exact path="/search/:tag" render={ ({match}) => (
+                <PhotoContainer
+                  images={this.state.images}
+                  initSearch={this.performSearch}
+                  searchText={this.state.searchQuery}
+                  query={match.params.tag}
+                />
+              )} />
+              <Route component={NoRoute} />
+            </Switch>) :
+            <NotFound />
+          }
         </div>
       </BrowserRouter>
     );

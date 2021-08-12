@@ -16,7 +16,6 @@ class SearchForm extends Component {
       this.props.initSearch(searchQuery)
       this.props.history.push(path)
     }
-    
   }
 
   render() {
