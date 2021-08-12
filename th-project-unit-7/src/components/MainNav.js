@@ -1,17 +1,20 @@
 import React from 'react';
-import {
-  Route,
-  NavLink,
-  Redirect
-} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
-const MainNav = ({match}) => {
+const MainNav = (props) => {
+
+  const handleNavSelection = (e) => {
+    const searchQuery = e.target.text.toLowerCase()
+    console.log(searchQuery)
+    props.initSearch(searchQuery)
+  }
+
   return(
     <nav className="main-nav">
       <ul>
-        <li><NavLink to="/search/cats">Cats</NavLink></li>
-        <li><NavLink to="/search/dogs">Dogs</NavLink></li>
-        <li><NavLink to="/search/computers">Computers</NavLink></li>
+        <li><NavLink to="/search/cats" onClick={handleNavSelection}>Cats</NavLink></li>
+        <li><NavLink to="/search/dogs" onClick={handleNavSelection}>Dogs</NavLink></li>
+        <li><NavLink to="/search/computers" onClick={handleNavSelection}>Computers</NavLink></li>
       </ul>
     </nav>
   )
